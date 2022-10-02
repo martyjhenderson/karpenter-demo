@@ -21,6 +21,8 @@ tasks:
       sudo ./aws/install && \
       rm awscliv2.zip && \
       rm -r aws
+  - name: Install kubectl
+    command: brew install kubectl    
 vscode:
   extensions:
     - hashicorp.terraform
