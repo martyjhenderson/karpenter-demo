@@ -1,0 +1,37 @@
+tasks:
+  - name: Install Terraform
+    command: |
+      brew install tfenv && \
+      cd $GITPOD_REPO_ROOT/terraform && \
+      tfenv install min-required && \
+      tfenv use min-required && \
+      cd $GITPOD_REPO_ROOT && \ 
+      gp sync-done tfinstall
+  - name: Init TFlint
+    command: |
+      gp sync-await tfinstall && \
+      brew install tflint && \
+      cd $GITPOD_REPO_ROOT/terraform && \
+      tflint --init && \
+      cd $GITPOD_REPO_ROOT && \
+      gp sync-done brew-cleanup
+  - name: Install AWS CLI
+    command: |
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+      unzip awscliv2.zip && \
+      sudo ./aws/install && \
+      rm awscliv2.zip && \
+      rm -r aws
+  - name: Brew Cleanup
+    command: |
+      gp sync-await brew-cleanup && \
+      rm -r *.core
+vscode:
+  extensions:
+    - hashicorp.terraform
+    - AmazonWebServices.aws-toolkit-vscode
+github:
+  prebuilds:
+    master: true
+    pullRequests: true
+    addComment: true    
