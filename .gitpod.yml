@@ -13,7 +13,8 @@ tasks:
       brew install tflint && \
       cd $GITPOD_REPO_ROOT/terraform && \
       tflint --init && \
-      cd $GITPOD_REPO_ROOT
+      cd $GITPOD_REPO_ROOT && \ 
+      gp sync-done tflint
   - name: Install AWS CLI
     command: |
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -21,6 +22,10 @@ tasks:
       sudo ./aws/install && \
       rm awscliv2.zip && \
       rm -r aws
+  - name: Install kubectl
+    command: |
+      gp sync-await tflint && \
+      brew install kubectl    
 vscode:
   extensions:
     - hashicorp.terraform
