@@ -13,8 +13,7 @@ tasks:
       brew install tflint && \
       cd $GITPOD_REPO_ROOT/terraform && \
       tflint --init && \
-      cd $GITPOD_REPO_ROOT && \
-      gp sync-done brew-cleanup
+      cd $GITPOD_REPO_ROOT
   - name: Install AWS CLI
     command: |
       curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
@@ -22,10 +21,6 @@ tasks:
       sudo ./aws/install && \
       rm awscliv2.zip && \
       rm -r aws
-  - name: Brew Cleanup
-    command: |
-      gp sync-await brew-cleanup && \
-      rm -r *.core
 vscode:
   extensions:
     - hashicorp.terraform
